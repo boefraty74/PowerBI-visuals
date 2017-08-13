@@ -16,7 +16,7 @@
 
 
 ## Story about the "Funnel Plot"<a name="chapter-0"></a>
-This [atricle from "thegaurdian"](https://www.theguardian.com/commentisfree/2011/oct/28/bad-science-diy-data-analysis) tells us the inspiring story about how using wrong visualization tools can 
+This [atricle from "the gaurdian"](https://www.theguardian.com/commentisfree/2011/oct/28/bad-science-diy-data-analysis) tells us the inspiring story about how using wrong visualization tools can 
 trigger wrong conclusions even by such a serious news publisher as BBC. The real "hero" of this story is "funnel plot". 
 Which can be used for comparing institutional performance and medical data analysis.  
 
@@ -179,7 +179,7 @@ The resulting  file is
 
 * Now edit _"src\visual.ts"_ file. 
 
-It is a typeScript.  You may find this part a little confusing, escpecially if you are not familiar with JavaScript / TypeScript. Don't worry it is possible just to follow the example as template.  
+It is a typeScript.  You may find this part a little confusing, especially if you are not familiar with JavaScript / TypeScript. Don't worry it is possible just to follow the example as template.  
 
 To follow the changes in TypeScript, search for the commented blocks: 
 
