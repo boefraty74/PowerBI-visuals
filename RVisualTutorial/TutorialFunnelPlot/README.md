@@ -2,7 +2,7 @@
 # TutorialFunnelPlot
 
 ## Table of Contents
-0. [Introduction - Instructive story about the "Funnel Plot"](#chapter-0)
+0. [Introduction - Story about the "Funnel Plot"](#chapter-0)
 1. [Chapter 1 - The minimal R-script and the accompanying data table](#chapter-1)
 2. [Chapter 2 - Load dataset into Power BI](#chapter-2)
 3. [Chapter 3 - Package R code in R-powered Custom Visual](#chapter-3)
@@ -16,16 +16,15 @@
 
 
 ## Story about the "Funnel Plot"<a name="chapter-0"></a>
-This [atricle from "the gaurdian"](https://www.theguardian.com/commentisfree/2011/oct/28/bad-science-diy-data-analysis) tells us the inspiring story about how using wrong visualization tools can 
-trigger wrong conclusions even by such a serious news publisher as BBC. The real "hero" of this story is "funnel plot". 
-Which can be used for comparing institutional performance and medical data analysis.  
+This [atricle from "The Gaurdian"](https://www.theguardian.com/commentisfree/2011/oct/28/bad-science-diy-data-analysis) tells us the inspiring story about how using the wrong visualization tools can 
+lead to wrong conclusions. The real hero of this story is the _funnel plot_, which can be used for comparing institutional performance and medical data analysis.  
 
 ![funnel plot image](fp.JPG)
 
 The funnel plot is easy to consume and interpret. The "funnel" is formed by confidence limits and show the amount of expected variation. 
 The dots outside the funnel are outliers.
 
-In [this blog ](https://onlinejournalismblog.com/2011/10/31/power-tools-for-aspiring-data-journalists-funnel-plots-in-r/) author demonstrates the implementation of "funnel plot" in R, and we use it as a starting point.  
+In [this blog ](https://onlinejournalismblog.com/2011/10/31/power-tools-for-aspiring-data-journalists-funnel-plots-in-r/), the author demonstrates the implementation of "funnel plot" in R, and we will use it as a starting point.  
 
 
 We are going to use this code in order to incrementally create 
@@ -33,8 +32,6 @@ We are going to use this code in order to incrementally create
 1.	R-visual in Power BI
 1.	R-powered Custom Visual in Power BI (PNG-based)
 1.	R-powered HTML-based Custom Visual in Power BI
-
-Of cause we could choose not to create R-visual or PNG-based custom visual and to go for HTML-based visual from the beginning, we only do it for the sake of completeness of tutorial.
 
 
 ## Chapter 1<a name="chapter-1"></a>
@@ -45,7 +42,7 @@ The minimal R-script and the accompanying data table:
 
 [chapter1_R\vscript_R_v1_00.r](chapter1_R/script_R_v1_00.r)
 
-The next version of R-script is essentially the same, but implements input errors handling and user parametes to control the appearance of the plot: 
+The next version of R-script is essentially the same, but implements input error handling and user parameters to control the appearance of the plot: 
 
 [chapter1_R\vscript_R_v1_01.r](chapter1_R/script_R_v1_01.r)
 
@@ -73,7 +70,7 @@ __Remark:__ The `dataset` is hard-coded name for the input dataframe of R-visual
 ## Chapter 3<a name="chapter-3"></a>
 
 We are about to package R code in R-powered Custom Visual. 
-Before you can get started you'll need to install the PBIVIZ tools. This should only take a few seconds (... or minutes).
+Before you can get started you'll need to install the PBIVIZ tools. This should not take long.
 Follow the [instructions here](https://github.com/Microsoft/PowerBI-visuals/blob/master/tools/README.md#installation)
 
 ### Section 3.1<a name="chapter-31"></a>
@@ -88,17 +85,17 @@ Now we will use any command line shell (like "Command Prompt") to create new R-p
 ```
 
 It will create funnelRvisual folder with initial template visual (`-t` stands for _template_). 
-The PBIVIZ is in _"dist"_ folder. Try to import it in PBIX and see what it does. The R-code is inside _"script.r"_ file. 
+The PBIVIZ is in _"dist"_ folder. Try to import it into Power BI and see what it does. The R-code is inside _"script.r"_ file. 
 
 * Open _"script.r"_ file for editing and copy the contents "script_RV_v2_00.r"  just as is !
 * Open _"capabilities.json"_ in any editor and Find/Replace the `Values` string by `dataset` string. It replaces the name of "Role" in template to be like in R-code. 
-* Open _"dependencies.json"_ in any editor and add one section for each R-package required in R-script (to support automatic import of packages, if visual is added first time)
+* Open _"dependencies.json"_ in any editor and add one section for each R package required in your R script. This will tell Power BI to automatically import those packages when the visual is loaded for the first time.
 
 Now re-package the visual again: 
 
 `> pbiviz package`
 
-Try to import it in PBIX again and see what it does.  
+Try to import it into Power BI again and see what it does.  
 The resulting PBIX and the whole Custom Visual Project from this section may be found in: 
 
 [chapter3_RCustomVisual](chapter3_RCustomVisual/funnelPlot_RCustomVisual.pbix)
@@ -149,7 +146,7 @@ Now re-package the visual again:
 
 `> pbiviz package`
 
-Try to import it in PBIX again and see what it does.  
+Try to import it into Power BI again and see what it does.  
 The resulting PBIX and the whole Custom Visual Project may be found in:
 
 [chapter3_RCustomVisual](chapter3_RCustomVisual/funnelPlot_RCustomVisual.pbix)
@@ -160,26 +157,26 @@ The resulting PBIX and the whole Custom Visual Project may be found in:
 ### Section 3.3<a name="chapter-33"></a>
 
 The Custom Visual in previous section is almost perfect, but something is still missing. What is it? 
-Of cause, user parameters. 
+Of course, it is user parameters. 
 
 ![CV02to03](imgs/Capture02TO03.PNG)
 
 
-The user obviously wants to control colors and sizes of visual elements as well as some internal parameters of algorithm from UI. 
+The user obviously wants to control colors and sizes of visual elements as well as some internal parameters of algorithm from the UI. 
 Let's add this capability: 
 
 * We need to edit _"capabilities.json"_ again, this time the _objects_ section. More about [_objects_ section ...](https://github.com/Microsoft/PowerBI-visuals/blob/master/Capabilities/Objects.md). 
 
-This is the place to define names, tooltips and types of each parameter. As well we decide on partition of parameters into groups (three groups in this case). 
+This is the place to define names, tooltips and types of each parameter. We also decide on the partition of parameters into groups (three groups in this case). 
 
 
 The resulting  file is
 
 [chapter3_RCustomVisual\funnelRvisual_v03\capabilities.json](chapter3_RCustomVisual/funnelRvisual_v03/capabilities.json)
 
-* Now edit _"src\visual.ts"_ file. 
+* Now edit the _"src\visual.ts"_ file. 
 
-It is a typeScript.  You may find this part a little confusing, especially if you are not familiar with JavaScript / TypeScript. Don't worry it is possible just to follow the example as template.  
+This file is written in TypeScript.  You may find this part a little confusing, especially if you are not familiar with JavaScript / TypeScript. Don't worry, it is possible to use this example as a template.  
 
 To follow the changes in TypeScript, search for the commented blocks: 
 
@@ -206,7 +203,7 @@ The resulting  file is:
 
 [chapter3_RCustomVisual\funnelRvisual_v03\script.r](chapter3_RCustomVisual/funnelRvisual_v03/script.r)
 
-To follow the changes in R-script, search for the commented code blocks: 
+To follow the changes in the R script, search for the commented code blocks: 
 
 ```
 #RVIZ_IN_PBI_GUIDE:BEGIN:Added to enable user parameters
@@ -229,7 +226,7 @@ Now re-package the visual again:
 
 `> pbiviz package`
 
-Try to import it in PBIX again and see what it does.  
+Try to import it into Power BI again and see what it does.  
 The resulting PBIX and the whole Custom Visual project in this section may be found in:  
 
 
@@ -265,7 +262,7 @@ Explore _"capabilities.json"_ and pay attention to `"scriptOutputType": "html"` 
 Explore _"dependencies.json"_ and pay attention to names of R-packages listed there.
 
 Explore _"script.r"_ and pay attention to its structure. You may open and run it in RStudio. It does not use external input. 
-You will find that it creates and saves _"out.html"_ file. This file have to be self-content (without external dependencies) and defines graphics inside HTML widget. 
+You will find that it creates and saves _"out.html"_ file. The file will have to be self-contained (without external dependencies) and defines graphics inside HTML widget. 
 
 To help `htmlWidgets` users we also provide R-utilities in _"r_files"_ [folder](chapter4_RHTMLCustomVisual/funnelRHTMLvisual_v01/r_files) to help with conversion of `plotly` or `widget` object into self-content HTML. 
 Note that this version of R-powered visual supports `source` command (unlike previous types of visuals) and we will use it to make code more readable.   
@@ -328,7 +325,7 @@ The resulting  file is
 
 `> pbiviz package`
 
-Try to import it in PBIX again and see what it does.  
+Try to import it into Power BI again and see what it does.  
 The resulting PBIX and the whole Custom Visual Project may be found in:  
 
 [chapter4_RCustomVisual\funnelRHTMLvisual_v01](chapter4_RHTMLCustomVisual/funnelRHTMLvisual_v01)
@@ -336,13 +333,13 @@ The resulting PBIX and the whole Custom Visual Project may be found in:
 
 ### Section 4.2<a name="chapter-42"></a>
 
-The resulting project in previous section is blown up and heavy relative to initial template. Blame for this all incremental changes that we did in this tutorial.  It has nothing to do with the fact of being HTML-based. Let us do another different example. We are going to take a code from this [showcase](http://www.htmlwidgets.org/showcase_networkD3.html). And do the changes on it. 
+The resulting project in the previous section is bloated relative to the initial template. This is due to the incremental changes we've made during the tutorial. If we start from an empty project, it will be much less bloated. Take a code from this [showcase](http://www.htmlwidgets.org/showcase_networkD3.html) and make changes to it. 
 
-The changes for HTML-based visual are highlighted
+The changes for the HTML-based visual are highlighted
 
 ![Highlighted changes](imgs/CaptureNetworkD3.PNG)
 
-Just copy it instead of your RHTML template `script.r` and you get this cool visual in your Power BI report !
+Just copy it instead of your RHTML template `script.r` and you get this cool visual in your Power BI report!
 
 
 
